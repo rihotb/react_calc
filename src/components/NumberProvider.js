@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
+
 export const NumberContext = React.createContext();
 
 const NumberProvider = (props) => {
