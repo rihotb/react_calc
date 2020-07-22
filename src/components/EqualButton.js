@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import { NumberContext } from "./NumberProvider";
 
 const EqualButton = () => {
-  return <div></div>;
+  const { doMath } = useContext(NumberContext);
+  return (
+    <button type="button" onClick={() => doMath()}>
+      =
+    </button>
+  );
 };
 
 export default EqualButton;
