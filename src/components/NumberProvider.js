@@ -32,14 +32,9 @@ const NumberProvider = (props) => {
   };
 
   /**
-   * 前回入力した値を削除する。
+   * TODO:入力した数値に0.01をかける
    */
-  const handleBackButton = () => {
-    if (number !== "") {
-      const deletedNumber = number.slice(0, number.length - 1);
-      setNumber(deletedNumber);
-    }
-  };
+  const handlePercentButton = () => {};
 
   /**
    *演算子をセットする。
@@ -134,7 +129,7 @@ const NumberProvider = (props) => {
         handleSetDisplayValue,
         handleSetStoredValue,
         handleClearValue,
-        handleBackButton,
+        handlePercentButton,
         handleSetCalcFunction,
         handleToggleNegative,
         doMath,

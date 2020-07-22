@@ -4,7 +4,7 @@ import { NumberContext } from "./NumberProvider";
 const EqualButton = () => {
   const { doMath } = useContext(NumberContext);
   return (
-    <button type="button" onClick={() => doMath()}>
+    <button className="function-button" type="button" onClick={() => doMath()}>
       =
     </button>
   );
