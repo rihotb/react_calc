@@ -93,7 +93,7 @@ const NumberProvider = (props) => {
             }`
           );
           break;
-        case "*":
+        case "×":
           setStoredNumber(
             `${
               Math.round(
@@ -102,7 +102,7 @@ const NumberProvider = (props) => {
             }`
           );
           break;
-        case "/":
+        case "÷":
           setStoredNumber(
             `${
               Math.round(

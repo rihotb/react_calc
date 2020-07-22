@@ -1,12 +1,16 @@
 import React, { useContext } from "react";
 import { NumberContext } from "./NumberProvider";
+import BaseButton from "./BaseButton";
 
 const NegativeButton = () => {
   const { handleToggleNegative } = useContext(NumberContext);
   return (
-    <button type="button" onClick={() => handleToggleNegative()}>
-      -/+
-    </button>
+    <BaseButton
+      text="+/-"
+      color="#A9A9A9"
+      fontColor="black"
+      onClick={() => handleToggleNegative()}
+    />
   );
 };
 

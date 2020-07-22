@@ -1,16 +1,15 @@
 import React, { useContext } from "react";
 import { NumberContext } from "./NumberProvider";
+import BaseButton from "./BaseButton";
 
 const FunctionButton = ({ buttonValue }) => {
   const { handleSetCalcFunction } = useContext(NumberContext);
   return (
-    <button
-      className="function-button"
-      type="button"
+    <BaseButton
+      text={buttonValue}
+      color={"orange"}
       onClick={() => handleSetCalcFunction(buttonValue)}
-    >
-      {buttonValue}
-    </button>
+    />
   );
 };
 
