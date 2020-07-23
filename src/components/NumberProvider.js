@@ -39,7 +39,11 @@ const NumberProvider = (props) => {
    * 入力した数値に0.01をかける。
    */
   const handlePercentButton = () => {
-    setNumber(`${parseFloat(number) * 0.01}`);
+    if (number === "") {
+      setNumber(`${storedNumber * 0.01}`);
+    } else {
+      setNumber(`${number * 0.01}`);
+    }
   };
 
   /**
