@@ -7,13 +7,19 @@ export const CalculatorStyles = styled.div`
   }
 
   .result {
-    height: 130px;
+    height: 100px;
     color: white;
-    font-size: 40px;
+    font-size: 35px;
     text-align: right;
+    padding-right: 10%;
     h2 {
       padding-top: 20%;
       font-weight: lighter;
     }
+  }
+
+  .zero {
+    display: inline-block;
+    width: 120px;
   }
 `;

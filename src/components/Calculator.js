@@ -7,7 +7,6 @@ import EqualButton from "./EqualButton";
 import PercentButton from "./PercentButton";
 import NegativeButton from "./NegativeButton";
 import { CalculatorStyles } from "./styles/Styles";
-import BaseButton from "./BaseButton";
 
 const Calculator = () => (
   <CalculatorStyles>
@@ -36,7 +35,9 @@ const Calculator = () => (
       <NumberButton buttonValue={3} />
       <FunctionButton buttonValue="+" />
 
-      <NumberButton buttonValue={0} />
+      <div className="zero">
+        <NumberButton buttonValue={0} />
+      </div>
 
       <NumberButton buttonValue="." />
       <EqualButton />

@@ -9,7 +9,7 @@ const Root = styled.button`
   background: ${({ color }) => color || "gray"};
   border: none;
   color: ${({ fontColor }) => fontColor || "white"};
-  font-size: 30px;
+  font-size: 25px;
   :hover {
     opacity: 0.8;
   }

@@ -6,11 +6,13 @@ const NumberProvider = (props) => {
   const [number, setNumber] = useState("");
   const [storedNumber, setStoredNumber] = useState("");
   const [functionType, setFunctionType] = useState("");
+  const [clearType, setClearType] = useState("AC");
 
   const handleSetDisplayValue = (num) => {
+    const clearType = "C";
+    setClearType(clearType);
     if ((!number.includes(".") || num !== ".") && number.length < 8) {
-      //0から始まる場合は空白
-      setNumber(`${(number + num).replace(/^0+/, "")}`);
+      setNumber(`${number + num}`);
     }
   };
 
@@ -26,15 +28,19 @@ const NumberProvider = (props) => {
    * 全て0にする。
    */
   const handleClearValue = () => {
+    const clearType = "AC";
+    setClearType(clearType);
     setNumber("");
     setStoredNumber("");
     setFunctionType("");
   };
 
   /**
-   * TODO:入力した数値に0.01をかける
+   * 入力した数値に0.01をかける。
    */
-  const handlePercentButton = () => {};
+  const handlePercentButton = () => {
+    setNumber(`${parseFloat(number) * 0.01}`);
+  };
 
   /**
    *演算子をセットする。
@@ -125,6 +131,7 @@ const NumberProvider = (props) => {
         number,
         storedNumber,
         functionType,
+        clearType,
         setNumber,
         handleSetDisplayValue,
         handleSetStoredValue,
