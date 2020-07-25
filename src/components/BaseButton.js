@@ -3,13 +3,14 @@ import styled from "styled-components";
 
 const Root = styled.button`
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   margin: 5px;
-  background: ${({ color }) => color || "gray"};
-  border: none;
-  color: ${({ fontColor }) => fontColor || "white"};
   font-size: 25px;
+  border: none;
+  background: ${({ color }) => color || "gray"};
+  color: ${({ fontColor }) => fontColor || "white"};
+  cursor: pointer;
   :hover {
     opacity: 0.8;
   }
@@ -17,7 +18,13 @@ const Root = styled.button`
 
 const BaseButton = ({ text, color, fontColor, onClick }) => {
   return (
-    <Root type="button" color={color} fontColor={fontColor} onClick={onClick}>
+    <Root
+      className={`${text === 0 ? "zero" : ""}`}
+      type="button"
+      color={color}
+      fontColor={fontColor}
+      onClick={onClick}
+    >
       {text}
     </Root>
   );
