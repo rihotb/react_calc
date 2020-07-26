@@ -4,7 +4,7 @@ export const CalculatorStyles = styled.div`
   .calculator {
     background: black;
     width: 300px;
-    height: 520px;
+    height: 530px;
     border-radius: 30px;
     padding: 10px;
   }
@@ -18,7 +18,7 @@ export const CalculatorStyles = styled.div`
 
   .result {
     color: white;
-    font-size: 35px;
+    font-size: 40px;
     text-align: right;
     h2 {
       margin-bottom: 10px;

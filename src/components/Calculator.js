@@ -6,12 +6,15 @@ import Display from "./Display";
 import EqualButton from "./EqualButton";
 import PercentButton from "./PercentButton";
 import NegativeButton from "./NegativeButton";
+import Time from "./Time";
 import { CalculatorStyles } from "./styles/Styles";
 
 const Calculator = () => (
   <CalculatorStyles>
     <div className="calculator">
-      <div className="top">16:04</div>
+      <div className="top">
+        <Time />
+      </div>
       <div className="result">
         <Display />
       </div>

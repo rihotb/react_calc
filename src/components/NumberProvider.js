@@ -47,7 +47,7 @@ const NumberProvider = (props) => {
   };
 
   /**
-   *演算子をセットする。
+   * 演算子をセットする。
    * @param type 演算子
    */
   const handleSetCalcFunction = (type) => {
@@ -89,8 +89,8 @@ const NumberProvider = (props) => {
           setStoredNumber(
             `${
               Math.round(
-                `${(parseFloat(storedNumber) + parseFloat(number)) * 100}`
-              ) / 100
+                `${(parseFloat(storedNumber) + parseFloat(number)) * 1000}`
+              ) / 1000
             }`
           );
           break;
