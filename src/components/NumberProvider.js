@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import Time from "./Time";
 export const NumberContext = React.createContext();
 
 const NumberProvider = (props) => {
@@ -7,7 +7,23 @@ const NumberProvider = (props) => {
   const [storedNumber, setStoredNumber] = useState("");
   const [functionType, setFunctionType] = useState("");
   const [clearType, setClearType] = useState("AC");
+  const [time, setTime] = useState("");
 
+  useEffect(() => {
+    //componentDidMount() コンポーネントが初めて描画されるタイミング
+    const interval = setTimeout(() => setTime(Time, 60000));
+    //componentWillUnmount()　コンポーネントが破棄されるタイミング
+    return () => {
+      clearInterval(interval);
+    };
+    //[]のなかは依存変数？？
+  }, []);
+
+  console.log(time);
+  /**
+   * 入力された数値を表示する。
+   * @param num　数値
+   */
   const handleSetDisplayValue = (num) => {
     const clearType = "C";
     setClearType(clearType);
