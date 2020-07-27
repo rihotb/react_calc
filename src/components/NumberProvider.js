@@ -11,7 +11,7 @@ const NumberProvider = (props) => {
 
   useEffect(() => {
     //componentDidMount() コンポーネントが初めて描画されるタイミング
-    const interval = setTimeout(() => setTime(Time, 60000));
+    const interval = setInterval(() => setTime(Time, 60000));
     //componentWillUnmount()　コンポーネントが破棄されるタイミング
     return () => {
       clearInterval(interval);
@@ -19,7 +19,6 @@ const NumberProvider = (props) => {
     //[]のなかは依存変数？？
   }, []);
 
-  console.log(time);
   /**
    * 入力された数値を表示する。
    * @param num　数値
