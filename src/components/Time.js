@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
 const Time = () => {
-  const today = new Date();
-  let hour = today.getHours();
-  hour = ("0" + hour).slice(-2);
-  let minute = today.getMinutes();
-  minute = ("0" + minute).slice(-2);
+  const [time, setTime] = useState(new Date());
 
-  const now = `${hour} : ${minute}`;
+  useEffect(() => {
+    //componentDidMount() コンポーネントが初めて描画されるタイミング
+    const interval = setInterval(() => setTime(new Date()), 1000);
+    //componentWillUnmount()　コンポーネントが破棄されるタイミング
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
-  return <div>{now}</div>;
+  const format = useMemo(() => {
+    const hour = time.getHours();
+    const minute = time.getMinutes();
+
+    return `${("0" + hour).slice(-2)}:${("0" + minute).slice(-2)}`;
+  }, [time]);
+
+  return <div>{format}</div>;
 };
 
 export default Time;
