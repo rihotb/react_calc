@@ -15,7 +15,7 @@ const NumberProvider = (props) => {
     const clearType = "C";
     setClearType(clearType);
     if ((!number.includes(".") || num !== ".") && number.length < 8) {
-      setNumber(`${number + num}`);
+      setNumber(`${(number + num).replace(/^0+/, "")}`);
     }
   };
 
@@ -54,12 +54,58 @@ const NumberProvider = (props) => {
    * @param type 演算子
    */
   const handleSetCalcFunction = (type) => {
-    if (number) {
+    //functionTypeがすでに存在する場合は、計算してその結果をstoredNumberにいれる
+    if (functionType) {
+      switch (functionType) {
+        case "+":
+          setStoredNumber(
+            `${
+              Math.round(
+                `${(parseFloat(storedNumber) + parseFloat(number)) * 1000}`
+              ) / 1000
+            }`
+          );
+          break;
+        case "-":
+          setStoredNumber(
+            `${
+              Math.round(
+                `${(parseFloat(storedNumber) - parseFloat(number)) * 1000}`
+              ) / 1000
+            }`
+          );
+          break;
+        case "×":
+          setStoredNumber(
+            `${
+              Math.round(
+                `${parseFloat(storedNumber) * parseFloat(number) * 1000}`
+              ) / 1000
+            }`
+          );
+          break;
+        case "÷":
+          setStoredNumber(
+            `${
+              Math.round(
+                `${(parseFloat(storedNumber) / parseFloat(number)) * 1000}`
+              ) / 1000
+            }`
+          );
+          break;
+        default:
+          break;
+      }
+      setNumber("");
       setFunctionType(type);
-      handleSetStoredValue();
-    }
-    if (storedNumber) {
-      setFunctionType(type);
+    } else {
+      if (number) {
+        setFunctionType(type);
+        handleSetStoredValue();
+      }
+      if (storedNumber) {
+        setFunctionType(type);
+      }
     }
   };
 
@@ -128,6 +174,7 @@ const NumberProvider = (props) => {
           break;
       }
       setNumber("");
+      setFunctionType("");
     }
   };
 
