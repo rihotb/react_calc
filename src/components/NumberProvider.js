@@ -6,12 +6,15 @@ const NumberProvider = (props) => {
   const [storedNumber, setStoredNumber] = useState("");
   const [functionType, setFunctionType] = useState("");
   const [clearType, setClearType] = useState("AC");
+  const [operatorColor, setOperatorColor] = useState("orange");
+  const [operatorFontColor, setOperatorFontColor] = useState("white");
 
   /**
    * 入力された数値を表示する。
    * @param num　数値
    */
   const handleSetDisplayValue = (num) => {
+    resetOperatorColor();
     const clearType = "C";
     setClearType(clearType);
     if ((!number.includes(".") || num !== ".") && number.length < 8) {
@@ -31,6 +34,7 @@ const NumberProvider = (props) => {
    * 全て0にする。
    */
   const handleClearValue = () => {
+    resetOperatorColor();
     const clearType = "AC";
     setClearType(clearType);
     setNumber("");
@@ -42,6 +46,7 @@ const NumberProvider = (props) => {
    * 入力した数値に0.01をかける。
    */
   const handlePercentButton = () => {
+    resetOperatorColor();
     if (number === "") {
       setNumber(`${storedNumber * 0.01}`);
     } else {
@@ -50,52 +55,66 @@ const NumberProvider = (props) => {
   };
 
   /**
+   * 四則演算をする。
+   */
+  const calculation = () => {
+    switch (functionType) {
+      case "+":
+        setStoredNumber(
+          `${
+            Math.round(
+              `${(parseFloat(storedNumber) + parseFloat(number)) * 1000}`
+            ) / 1000
+          }`
+        );
+        break;
+      case "-":
+        setStoredNumber(
+          `${
+            Math.round(
+              `${(parseFloat(storedNumber) - parseFloat(number)) * 1000}`
+            ) / 1000
+          }`
+        );
+        break;
+      case "×":
+        setStoredNumber(
+          `${
+            Math.round(
+              `${parseFloat(storedNumber) * parseFloat(number) * 1000}`
+            ) / 1000
+          }`
+        );
+        break;
+      case "÷":
+        setStoredNumber(
+          `${
+            Math.round(
+              `${(parseFloat(storedNumber) / parseFloat(number)) * 1000}`
+            ) / 1000
+          }`
+        );
+        break;
+      default:
+        break;
+    }
+  };
+
+  /**
    * 演算子をセットする。
    * @param type 演算子
    */
   const handleSetCalcFunction = (type) => {
+    //演算子ボタンの色を逆にする(背景：白、文字：オレンジ)
+    setOperatorColor("white");
+    setOperatorFontColor("orange");
     //functionTypeがすでに存在する場合は、計算してその結果をstoredNumberにいれる
     if (functionType) {
-      switch (functionType) {
-        case "+":
-          setStoredNumber(
-            `${
-              Math.round(
-                `${(parseFloat(storedNumber) + parseFloat(number)) * 1000}`
-              ) / 1000
-            }`
-          );
-          break;
-        case "-":
-          setStoredNumber(
-            `${
-              Math.round(
-                `${(parseFloat(storedNumber) - parseFloat(number)) * 1000}`
-              ) / 1000
-            }`
-          );
-          break;
-        case "×":
-          setStoredNumber(
-            `${
-              Math.round(
-                `${parseFloat(storedNumber) * parseFloat(number) * 1000}`
-              ) / 1000
-            }`
-          );
-          break;
-        case "÷":
-          setStoredNumber(
-            `${
-              Math.round(
-                `${(parseFloat(storedNumber) / parseFloat(number)) * 1000}`
-              ) / 1000
-            }`
-          );
-          break;
-        default:
-          break;
+      if (!number) {
+        setFunctionType(type);
+        return;
       }
+      calculation();
       setNumber("");
       setFunctionType(type);
     } else {
@@ -113,6 +132,7 @@ const NumberProvider = (props) => {
    * +-を切り替える。
    */
   const handleToggleNegative = () => {
+    resetOperatorColor();
     if (number) {
       if (number > 0) {
         setNumber(`-${number}`);
@@ -129,50 +149,22 @@ const NumberProvider = (props) => {
   };
 
   /**
-   * 四則演算をする。
+   * 演算子ボタンの色をリセットする
+   */
+  const resetOperatorColor = () => {
+    if (operatorColor !== "orange") {
+      setOperatorColor("orange");
+      setOperatorFontColor("white");
+    }
+  };
+
+  /**
+   * 四則演算をしてfunctionTypeをリセットする
    */
   const doMath = () => {
+    resetOperatorColor();
     if (number && storedNumber) {
-      switch (functionType) {
-        case "+":
-          setStoredNumber(
-            `${
-              Math.round(
-                `${(parseFloat(storedNumber) + parseFloat(number)) * 1000}`
-              ) / 1000
-            }`
-          );
-          break;
-        case "-":
-          setStoredNumber(
-            `${
-              Math.round(
-                `${(parseFloat(storedNumber) - parseFloat(number)) * 1000}`
-              ) / 1000
-            }`
-          );
-          break;
-        case "×":
-          setStoredNumber(
-            `${
-              Math.round(
-                `${parseFloat(storedNumber) * parseFloat(number) * 1000}`
-              ) / 1000
-            }`
-          );
-          break;
-        case "÷":
-          setStoredNumber(
-            `${
-              Math.round(
-                `${(parseFloat(storedNumber) / parseFloat(number)) * 1000}`
-              ) / 1000
-            }`
-          );
-          break;
-        default:
-          break;
-      }
+      calculation();
       setNumber("");
       setFunctionType("");
     }
@@ -186,6 +178,8 @@ const NumberProvider = (props) => {
         storedNumber,
         functionType,
         clearType,
+        operatorColor,
+        operatorFontColor,
         setNumber,
         handleSetDisplayValue,
         handleSetStoredValue,

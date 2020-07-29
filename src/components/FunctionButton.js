@@ -3,11 +3,17 @@ import { NumberContext } from "./NumberProvider";
 import BaseButton from "./BaseButton";
 
 const FunctionButton = ({ buttonValue }) => {
-  const { handleSetCalcFunction } = useContext(NumberContext);
+  const {
+    handleSetCalcFunction,
+    operatorColor,
+    operatorFontColor,
+  } = useContext(NumberContext);
+
   return (
     <BaseButton
       text={buttonValue}
-      color={"orange"}
+      color={operatorColor}
+      fontColor={operatorFontColor}
       onClick={() => handleSetCalcFunction(buttonValue)}
     />
   );
