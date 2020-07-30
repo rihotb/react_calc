@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useNumber } from "../hooks/useNumber";
+
 export const NumberContext = React.createContext();
 
 const NumberProvider = (props) => {
@@ -15,6 +17,8 @@ const NumberProvider = (props) => {
   //数値ボタンが押されているかどうか
   const [isNumberClicked, setIsNumberClicked] = useState(false);
   const [arrayInput, setArrayInput] = useState([]);
+
+  const useNumberGroup = useNumber();
 
   //初回の描画と第二引数（operator）が更新された時に実行される
   useEffect(() => {
@@ -75,40 +79,16 @@ const NumberProvider = (props) => {
   const calculation = () => {
     switch (functionType) {
       case "+":
-        setStoredNumber(
-          `${
-            Math.round(
-              `${(parseFloat(storedNumber) + parseFloat(number)) * 1000}`
-            ) / 1000
-          }`
-        );
+        setStoredNumber(`${Math.round(`${(parseFloat(storedNumber) + parseFloat(number)) * 1000}`) / 1000}`);
         break;
       case "-":
-        setStoredNumber(
-          `${
-            Math.round(
-              `${(parseFloat(storedNumber) - parseFloat(number)) * 1000}`
-            ) / 1000
-          }`
-        );
+        setStoredNumber(`${Math.round(`${(parseFloat(storedNumber) - parseFloat(number)) * 1000}`) / 1000}`);
         break;
       case "×":
-        setStoredNumber(
-          `${
-            Math.round(
-              `${parseFloat(storedNumber) * parseFloat(number) * 1000}`
-            ) / 1000
-          }`
-        );
+        setStoredNumber(`${Math.round(`${parseFloat(storedNumber) * parseFloat(number) * 1000}`) / 1000}`);
         break;
       case "÷":
-        setStoredNumber(
-          `${
-            Math.round(
-              `${(parseFloat(storedNumber) / parseFloat(number)) * 1000}`
-            ) / 1000
-          }`
-        );
+        setStoredNumber(`${Math.round(`${(parseFloat(storedNumber) / parseFloat(number)) * 1000}`) / 1000}`);
         break;
       default:
         break;
@@ -196,19 +176,15 @@ const NumberProvider = (props) => {
     <NumberContext.Provider
       value={{
         //管理したい関数や値
-        number,
-        storedNumber,
+        useNumberGroup,
         functionType,
         clearType,
         operatorColor,
         operatorFontColor,
         isOperatorClicked,
         operator,
-        isNumberClicked,
-        setIsNumberClicked,
         setIsOperatorClicked,
         setOperator,
-        setNumber,
         handleSetDisplayValue,
         handleSetStoredValue,
         handleClearValue,
