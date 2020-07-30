@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 
+/**
+ * 数値を扱うフック
+ * - number: 今の数値を扱う
+ * - storedNumber: これまでに押してきた数値の合算
+ * - resultNumber: 結果の数値を扱う
+ * - isNumberActived:
+ */
 export const useNumber = () => {
   // 「いま」押した数値
   const [number, setNumber] = useState("");
@@ -8,21 +15,23 @@ export const useNumber = () => {
   // 結果の数値を扱う
   const [resultNumber, setResultNumber] = useState("");
   // 数値判別として扱う
-  const [isNumber, setIsNumber] = useState(false);
+  const [isNumberActived, setIsNumberActived] = useState(false);
 
   useEffect(() => {
-    if (!isNumber && storedNumber) {
+    if (!isNumberActived && storedNumber) {
       setResultNumber(storedNumber);
       // リセット処理
       clear();
     }
-  }, [isNumber]);
+  }, [isNumberActived]);
 
   // 数値を保存する
   const set = useCallback(
     (value) => {
       setNumber(value);
       setStoredNumber(`${storedNumber}${value}`);
+      // 値をセットするという意味は、数値がアクティブなのでここでセット
+      setNumberFlg();
     },
     [storedNumber]
   );
@@ -32,24 +41,18 @@ export const useNumber = () => {
     setStoredNumber("");
   };
 
-  //「これまで」に押してきた数値の合算
-  // const sum = (value) => {
-  //   setStoredNumber(`${storedNumber}${value}`);
-  // };
-
   // 数値のときにつかう。true
-  const setNumberFlg = () => setIsNumber(true);
+  const setNumberFlg = () => setIsNumberActived(true);
 
   // 数値以外のときにつかう。false
-  const setUnNumberFlg = () => setIsNumber(false);
+  const setUnNumberFlg = () => setIsNumberActived(false);
 
   return {
     number,
     storedNumber,
     resultNumber,
-    isNumber,
+    isNumberActived,
     set,
-    setNumberFlg,
     setUnNumberFlg,
   };
 };

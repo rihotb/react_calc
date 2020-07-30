@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNumber } from "../hooks/useNumber";
+import { useOperator } from "../hooks/useOperator";
 
 export const NumberContext = React.createContext();
 
@@ -19,6 +20,7 @@ const NumberProvider = (props) => {
   const [arrayInput, setArrayInput] = useState([]);
 
   const useNumberGroup = useNumber();
+  const useOperatorGroup = useOperator();
 
   //初回の描画と第二引数（operator）が更新された時に実行される
   useEffect(() => {
@@ -26,6 +28,22 @@ const NumberProvider = (props) => {
       calculation();
     }
   }, [operator]);
+
+  // 数値が選択されたときに動く
+  useEffect(() => {
+    if (useNumberGroup.isNumberActived) {
+      // 演算子フラグをfalseにしてあげる処理をする
+      useOperatorGroup.setUnOperatorFlg();
+    }
+  }, [useNumberGroup.isNumberActived]);
+
+  // 演算子が選択されたときに動く
+  useEffect(() => {
+    if (useOperatorGroup.isOperatorActived) {
+      // 数値フラグをfalseにしてあげる処理をする
+      useNumberGroup.setUnNumberFlg();
+    }
+  }, [useOperatorGroup.isOperatorActived]);
 
   /**
    * 入力された数値を表示する。
@@ -177,6 +195,7 @@ const NumberProvider = (props) => {
       value={{
         //管理したい関数や値
         useNumberGroup,
+        useOperatorGroup,
         functionType,
         clearType,
         operatorColor,

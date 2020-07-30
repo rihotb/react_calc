@@ -7,8 +7,6 @@ const NumberButton = ({ buttonValue }) => {
 
   //数値ボタンが押されたら実行される
   const handleChange = () => {
-    //数値ボタンが押されている
-    useNumberGroup.setNumberFlg();
     //numberにbuttonValueが入る
     useNumberGroup.set(buttonValue);
   };
