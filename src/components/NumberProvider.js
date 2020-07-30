@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNumber } from "../hooks/useNumber";
 import { useOperator } from "../hooks/useOperator";
+import { useInputArray } from "../hooks/useInputArray";
 
 export const NumberContext = React.createContext();
 
@@ -15,12 +16,10 @@ const NumberProvider = (props) => {
   const [isOperatorClicked, setIsOperatorClicked] = useState(false);
   //演算子（+-*/)の値
   const [operator, setOperator] = useState("");
-  //数値ボタンが押されているかどうか
-  const [isNumberClicked, setIsNumberClicked] = useState(false);
-  const [arrayInput, setArrayInput] = useState([]);
 
   const useNumberGroup = useNumber();
   const useOperatorGroup = useOperator();
+  const useInputArrayGroup = useInputArray();
 
   //初回の描画と第二引数（operator）が更新された時に実行される
   useEffect(() => {
@@ -44,6 +43,15 @@ const NumberProvider = (props) => {
       useNumberGroup.setUnNumberFlg();
     }
   }, [useOperatorGroup.isOperatorActived]);
+
+  useEffect(() => {
+    if (useNumberGroup.resultNumber && useOperatorGroup.isOperatorActived) {
+      useInputArrayGroup.push(
+        useNumberGroup.resultNumber,
+        useOperatorGroup.operator
+      );
+    }
+  }, [useNumberGroup.resultNumber, useOperatorGroup.operator]);
 
   /**
    * 入力された数値を表示する。
@@ -97,16 +105,40 @@ const NumberProvider = (props) => {
   const calculation = () => {
     switch (functionType) {
       case "+":
-        setStoredNumber(`${Math.round(`${(parseFloat(storedNumber) + parseFloat(number)) * 1000}`) / 1000}`);
+        setStoredNumber(
+          `${
+            Math.round(
+              `${(parseFloat(storedNumber) + parseFloat(number)) * 1000}`
+            ) / 1000
+          }`
+        );
         break;
       case "-":
-        setStoredNumber(`${Math.round(`${(parseFloat(storedNumber) - parseFloat(number)) * 1000}`) / 1000}`);
+        setStoredNumber(
+          `${
+            Math.round(
+              `${(parseFloat(storedNumber) - parseFloat(number)) * 1000}`
+            ) / 1000
+          }`
+        );
         break;
       case "×":
-        setStoredNumber(`${Math.round(`${parseFloat(storedNumber) * parseFloat(number) * 1000}`) / 1000}`);
+        setStoredNumber(
+          `${
+            Math.round(
+              `${parseFloat(storedNumber) * parseFloat(number) * 1000}`
+            ) / 1000
+          }`
+        );
         break;
       case "÷":
-        setStoredNumber(`${Math.round(`${(parseFloat(storedNumber) / parseFloat(number)) * 1000}`) / 1000}`);
+        setStoredNumber(
+          `${
+            Math.round(
+              `${(parseFloat(storedNumber) / parseFloat(number)) * 1000}`
+            ) / 1000
+          }`
+        );
         break;
       default:
         break;
@@ -196,6 +228,7 @@ const NumberProvider = (props) => {
         //管理したい関数や値
         useNumberGroup,
         useOperatorGroup,
+        useInputArrayGroup,
         functionType,
         clearType,
         operatorColor,

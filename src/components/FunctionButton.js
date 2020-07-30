@@ -19,7 +19,9 @@ const FunctionButton = ({ buttonValue }) => {
       text={buttonValue}
       //演算子ボタンが押されている　＆＆　buttonValueとoperatorの値が同じ
       color={isOperatorActived && buttonValue === operator ? "white" : "orange"}
-      fontColor={isOperatorActived && buttonValue === operator ? "orange" : "white"}
+      fontColor={
+        isOperatorActived && buttonValue === operator ? "orange" : "white"
+      }
       onClick={handleChange}
     />
   );

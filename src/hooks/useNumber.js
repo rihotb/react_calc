@@ -5,7 +5,7 @@ import React, { useState, useEffect, useCallback } from "react";
  * - number: 今の数値を扱う
  * - storedNumber: これまでに押してきた数値の合算
  * - resultNumber: 結果の数値を扱う
- * - isNumberActived:
+ * - isNumberActived: 数値がクリックされたかどうか
  */
 export const useNumber = () => {
   // 「いま」押した数値
