@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 export const NumberContext = React.createContext();
 
 const NumberProvider = (props) => {
@@ -8,6 +8,20 @@ const NumberProvider = (props) => {
   const [clearType, setClearType] = useState("AC");
   const [operatorColor, setOperatorColor] = useState("orange");
   const [operatorFontColor, setOperatorFontColor] = useState("white");
+  //演算子ボタンが押されているかどうか
+  const [isOperatorClicked, setIsOperatorClicked] = useState(false);
+  //演算子（+-*/)の値
+  const [operator, setOperator] = useState("");
+  //数値ボタンが押されているかどうか
+  const [isNumberClicked, setIsNumberClicked] = useState(false);
+  const [arrayInput, setArrayInput] = useState([]);
+
+  //初回の描画と第二引数（operator）が更新された時に実行される
+  useEffect(() => {
+    if (number && operator) {
+      calculation();
+    }
+  }, [operator]);
 
   /**
    * 入力された数値を表示する。
@@ -18,6 +32,7 @@ const NumberProvider = (props) => {
     const clearType = "C";
     setClearType(clearType);
     if ((!number.includes(".") || num !== ".") && number.length < 8) {
+      //numberと入力された数値numを文字列結合する。頭が0から始まれば空白にする。
       setNumber(`${(number + num).replace(/^0+/, "")}`);
     }
   };
@@ -102,27 +117,34 @@ const NumberProvider = (props) => {
 
   /**
    * 演算子をセットする。
-   * @param type 演算子
+   * @param type 今回クリックされた演算子
    */
   const handleSetCalcFunction = (type) => {
-    //演算子ボタンの色を逆にする(背景：白、文字：オレンジ)
-    setOperatorColor("white");
-    setOperatorFontColor("orange");
-    //functionTypeがすでに存在する場合は、計算してその結果をstoredNumberにいれる
+    //演算子がすでにセットされているとき
     if (functionType) {
+      //連続して演算子ボタンを押したときは、functionTypeに今回クリックされた演算子を入れてリターン（計算しない）
+      //数値ボタンを押してから演算子ボタンを押したなら、numberは入っているはず
       if (!number) {
         setFunctionType(type);
         return;
       }
+      //storedNumberとnumberを前回セットした演算子(functionType)で計算する→その結果をstoredNumberにいれる
       calculation();
+      //ここでnumberを空文字にしないと、numberの値と次にクリックした数値ボタンの値がくっついてしまう
+      //1+2+3なら23, 1+4+7なら47になる
       setNumber("");
+      //今回クリックされた演算子(type)をFunctionTypeにセットする
       setFunctionType(type);
     } else {
+      //演算子がまだセットされていない（初めて演算子ボタンをクリックした）とき
       if (number) {
+        //今回クリックされた演算子をfunctionTypeとしてセット
         setFunctionType(type);
+        //numberの値をstoredNumberに入れて、numberを空文字にリセット
         handleSetStoredValue();
       }
       if (storedNumber) {
+        //今回クリックされた演算子をfunctionTypeとしてセット
         setFunctionType(type);
       }
     }
@@ -180,6 +202,12 @@ const NumberProvider = (props) => {
         clearType,
         operatorColor,
         operatorFontColor,
+        isOperatorClicked,
+        operator,
+        isNumberClicked,
+        setIsNumberClicked,
+        setIsOperatorClicked,
+        setOperator,
         setNumber,
         handleSetDisplayValue,
         handleSetStoredValue,
