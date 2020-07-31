@@ -1,68 +1,55 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# react_calc
 
-## Available Scripts
+### 計算メモ
 
-In the project directory, you can run:
+[再考案]
 
-### `npm start`
+- (1) storedNumber は isCalculated が false のタイミングで空にする。
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+  - 訂正。isCalculated が true であれば次に保存する値を number と同じとする
+  - 上記処理の後、calculated は false に戻す
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- (2) １つ前の operator を使う必要がある。
+  - numberProvider.js で、useNumberGroup.setSumNumber(x => eval(`${x} ${op} ${useNumberGroup.storedNumber}`))
 
-### `npm test`
+1. [100]
+   L number: 0
+   L storedNumber: 100
+   L sumNumber: 0
+   L isNumberActived: true
+   L isCalculated: false
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. [100+]
+   L number: ""
+   L storedNumber: 100
+   L sumNumber: 100
+   L isNumberActived: false
+   L isCalculated: true
 
-### `npm run build`
+3. [100+2]
+   L number: 2
+   L storedNumber: 2 (1)
+   L sumNumber: 100
+   L isNumberActived: true
+   L isCalculated: false (1)
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. [100+200]
+   L number: 0
+   L storedNumber: 200
+   L sumNumber: 100
+   L isNumberActived: true
+   L isCalculated: false
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+5. [100+200+]
+   L number: ""
+   L storedNumber: 200
+   L sumNumber: sumNumber(100) op(+) storedNumber(200) (2)
+   L isNumberActived: false
+   L isCalculated: true
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+6. [100+200+-]
+   L number: ""
+   L storedNumber: 200
+   L sumNumber: 300 | 既に isCalculated が true の為、計算しない
+   L isNumberActived: false
+   L isCalculated: true

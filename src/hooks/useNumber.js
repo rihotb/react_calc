@@ -1,58 +1,66 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 /**
  * 数値を扱うフック
+ * : 数値に対しての責任を負う
+ *
  * - number: 今の数値を扱う
- * - storedNumber: これまでに押してきた数値の合算
- * - resultNumber: 結果の数値を扱う
- * - isNumberActived: 数値がクリックされたかどうか
+ * - storedNumber: これまでに押してきた数値の合算を扱う。
+ * - sumNumber: 合算値を扱う
+ * - isNumberActived: 数値系ボタンがクリックされたかどうか
+ * - isCalculated: 計算したかどうか
+ * - calc: 計算処理
  */
 export const useNumber = () => {
-  // 「いま」押した数値
   const [number, setNumber] = useState("");
-  // 「これまで」に押してきた数値の合算
   const [storedNumber, setStoredNumber] = useState("");
-  // 結果の数値を扱う
-  const [resultNumber, setResultNumber] = useState("");
-  // 数値判別として扱う
+  const [sumNumber, setSumNumber] = useState("");
   const [isNumberActived, setIsNumberActived] = useState(false);
+  const [isCalculated, setIsCalculated] = useState(false);
 
-  useEffect(() => {
-    if (!isNumberActived && storedNumber) {
-      setResultNumber(storedNumber);
-      // リセット処理
-      clear();
-    }
-  }, [isNumberActived]);
-
-  // 数値を保存する
+  /**
+   * 数値データを保存する処理
+   */
   const set = useCallback(
     (value) => {
       setNumber(value);
-      setStoredNumber(`${storedNumber}${value}`);
-      // 値をセットするという意味は、数値がアクティブなのでここでセット
-      setNumberFlg();
+      setIsNumberActived(true);
+      // 演算子が押された後の最初の保存はnumberをそのまま保存する
+      if (isCalculated) {
+        setStoredNumber(value);
+        setIsCalculated(false);
+      } else {
+        setStoredNumber(`${storedNumber}${value}`);
+      }
+    },
+    [storedNumber, isCalculated]
+  );
+
+  /**
+   * 計算処理
+   * - 演算子がある場合は計算を行う
+   * - ない場合は一時データをそのまま保存する
+   */
+  const calc = useCallback(
+    (operator) => {
+      operator ? setSumNumber((value) => eval(`${value} ${operator} ${storedNumber}`)) : setSumNumber(storedNumber);
+      setStoredNumber("");
     },
     [storedNumber]
   );
 
-  const clear = () => {
-    setNumber("");
-    setStoredNumber("");
-  };
-
-  // 数値のときにつかう。true
-  const setNumberFlg = () => setIsNumberActived(true);
-
-  // 数値以外のときにつかう。false
-  const setUnNumberFlg = () => setIsNumberActived(false);
+  const setUnNumberFlg = useCallback(() => setIsNumberActived(false), []);
+  const setCalculatedFlg = useCallback(() => setIsCalculated(true), []);
 
   return {
     number,
     storedNumber,
-    resultNumber,
+    sumNumber,
     isNumberActived,
+    isCalculated,
     set,
+    calc,
     setUnNumberFlg,
+    setCalculatedFlg,
   };
 };
