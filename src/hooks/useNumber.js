@@ -43,6 +43,7 @@ export const useNumber = () => {
    */
   const calc = useCallback(
     (operator) => {
+      if (!storedNumber) return;
       operator ? setSumNumber((value) => eval(`${value} ${operator} ${storedNumber}`)) : setSumNumber(storedNumber);
       setStoredNumber("");
     },

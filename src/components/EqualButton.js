@@ -3,8 +3,13 @@ import { NumberContext } from "./NumberProvider";
 import BaseButton from "./BaseButton";
 
 const EqualButton = () => {
-  // const { doMath } = useContext(NumberContext);
-  return <BaseButton text="=" color={"orange"} onClick={() => console.log(`domath`)} />;
+  const { useNumberGroup, useOperatorGroup } = useContext(NumberContext);
+
+  const handleChange = () => {
+    useNumberGroup.calc(useOperatorGroup.beforeOperator);
+  };
+
+  return <BaseButton text="=" color={"orange"} onClick={handleChange} />;
 };
 
 export default EqualButton;
