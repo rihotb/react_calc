@@ -104,9 +104,10 @@ ACを押した時
    L isNumberActived: false　○
    L isCalculated: true　○
    L beforeOperator: ""
-   L isOperatorActived: true　○
+   L isOperatorActived: true　○ 
    L isOperatorClicked: false
    L operator: "+"　○
+   isNumberActivedかisOperatorActivedがtrueであればC？？　
 
 Cを押した時
 　表示が1→0になる
@@ -116,11 +117,12 @@ Cを押した時
    L storedNumber: 0
    L sumNumber: 1 
    L isNumberActived: false
-   L isCalculated: false ○
+   L isCalculated: true
    L beforeOperator: ""
    L isOperatorActived: true
    L isOperatorClicked: false
    L operator: "+"
+   isNumberActivedかisOperatorActivedがtrueであればC？？　←だめ
 
 ACを押した時
 　　L number: 0
@@ -153,7 +155,7 @@ Cを押した時
 　　L number: 0 ○
    L storedNumber: 0 ○
    L sumNumber: 1
-   L isNumberActived: false ○
+   L isNumberActived: false ○  //演算子ボタンが有効になってるからfalse
    L isCalculated: false
    L beforeOperator: "+"
    L isOperatorActived: true ○
@@ -170,3 +172,17 @@ ACを押した時
    L isOperatorActived: false ○
    L isOperatorClicked: false
    L operator: "" ○
+
+
+ACかCを判別するための条件
+
+   ACを押したらnumberを""にする
+   storedNumber("")
+   sumNumber("")
+
+   Cを押したらnumberを""にする
+   storedNumber("")
+
+   空文字以外であればCボタンで表示
+
+　

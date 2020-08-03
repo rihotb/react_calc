@@ -34,13 +34,30 @@ const NumberProvider = (props) => {
 
   //Cボタン押したら動く
   const clear = () => {
-    useNumberGroup.clear();
+    if (useNumberGroup.isNumberActived) {
+      numberClear();
+    } else {
+      operatorClear();
+    }
   };
 
   //ACボタン押したら動く
   const allClear = () => {
     useNumberGroup.allClear();
     useOperatorGroup.clear();
+  };
+
+  const numberClear = () => {
+    useNumberGroup.numberClear();
+    useNumberGroup.setUnNumberFlg();
+    //２回目以降のときの処理
+    if (useOperatorGroup.operator) {
+      useOperatorGroup.setOperatorFlg();
+    }
+  };
+
+  const operatorClear = () => {
+    useNumberGroup.numberClear();
   };
 
   const equalClear = () => {

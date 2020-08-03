@@ -52,9 +52,12 @@ export const useNumber = () => {
     [storedNumber]
   );
 
-  const clear = () => {
+  /**
+   * 一時データをリセットする
+   */
+  const numberClear = () => {
     setStoredNumber("");
-    setIsNumberActived(false);
+    setNumber("");
   };
 
   const allClear = () => {
@@ -79,6 +82,6 @@ export const useNumber = () => {
     setUnNumberFlg,
     setCalculatedFlg,
     allClear,
-    clear,
+    numberClear,
   };
 };
