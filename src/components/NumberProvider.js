@@ -7,6 +7,7 @@ export const NumberContext = React.createContext();
 const NumberProvider = (props) => {
   const useNumberGroup = useNumber();
   const useOperatorGroup = useOperator();
+  let fixedOperator;
 
   // 数値が選択されたときに動く
   useEffect(() => {
@@ -26,16 +27,45 @@ const NumberProvider = (props) => {
       useNumberGroup.setCalculatedFlg();
       // 計算処理を実行
       console.log(`計算処理実行`);
-      useNumberGroup.calc(useOperatorGroup.beforeOperator);
+      //=を使わず連続で計算するなら割り算掛け算はOK
+      fix();
+      useNumberGroup.calc(fixedOperator);
       useOperatorGroup.setClickFinishedFlg();
     }
   }, [useOperatorGroup.isOperatorClicked, useOperatorGroup.beforeOperator]);
+
+  /**
+   * beforeOperatorの割り算・引き算の記号を修正します。
+   */
+  const fix = () => {
+    if (useOperatorGroup.beforeOperator === "÷") {
+      fixedOperator = "/";
+    } else if (useOperatorGroup.beforeOperator === "×") {
+      fixedOperator = "*";
+    } else {
+      fixedOperator = useOperatorGroup.beforeOperator;
+    }
+  };
+
+  //電卓全体に関わる処理をする。具体的な処理が入る
+  const equalClear = () => {
+    useOperatorGroup.clear();
+  };
+
+  const AC = () => {
+    useNumberGroup.clear();
+    useOperatorGroup.clear();
+  };
 
   return (
     <NumberContext.Provider
       value={{
         useNumberGroup,
         useOperatorGroup,
+        AC,
+        equalClear,
+        fix,
+        fixedOperator,
       }}
     >
       {props.children}

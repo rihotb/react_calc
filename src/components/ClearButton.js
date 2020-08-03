@@ -3,13 +3,16 @@ import { NumberContext } from "./NumberProvider";
 import BaseButton from "./BaseButton";
 
 const ClearButton = () => {
-  // const { handleClearValue, clearType } = useContext(NumberContext);
+  const { AC } = useContext(NumberContext);
+  const handleClearValue = () => {
+    AC();
+  };
   return (
     <BaseButton
       text={`AC`}
       color="#A9A9A9"
       fontColor="black"
-      // onClick={() => handleClearValue()}
+      onClick={handleClearValue}
     />
   );
 };

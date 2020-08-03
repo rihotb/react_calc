@@ -43,12 +43,26 @@ export const useNumber = () => {
    */
   const calc = useCallback(
     (operator) => {
+      console.log(operator);
       if (!storedNumber) return;
-      operator ? setSumNumber((value) => eval(`${value} ${operator} ${storedNumber}`)) : setSumNumber(storedNumber);
+      operator
+        ? setSumNumber((value) => eval(`${value} ${operator} ${storedNumber}`))
+        : setSumNumber(storedNumber);
       setStoredNumber("");
     },
     [storedNumber]
   );
+
+  /**
+   * 数値やフラグをリセットする
+   */
+  const clear = () => {
+    setNumber("");
+    setStoredNumber("");
+    setSumNumber("");
+    setIsNumberActived(false);
+    setIsCalculated(false);
+  };
 
   const setUnNumberFlg = useCallback(() => setIsNumberActived(false), []);
   const setCalculatedFlg = useCallback(() => setIsCalculated(true), []);
@@ -63,5 +77,6 @@ export const useNumber = () => {
     calc,
     setUnNumberFlg,
     setCalculatedFlg,
+    clear,
   };
 };

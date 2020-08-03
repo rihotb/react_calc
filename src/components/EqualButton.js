@@ -3,10 +3,20 @@ import { NumberContext } from "./NumberProvider";
 import BaseButton from "./BaseButton";
 
 const EqualButton = () => {
-  const { useNumberGroup, useOperatorGroup } = useContext(NumberContext);
+  const {
+    useNumberGroup,
+    useOperatorGroup,
+    equalClear,
+    fix,
+    fixedOperator,
+  } = useContext(NumberContext);
 
   const handleChange = () => {
-    useNumberGroup.calc(useOperatorGroup.beforeOperator);
+    fix();
+    //fixedOperatorがなぜかundefined
+    console.log(fixedOperator);
+    useNumberGroup.calc(fixedOperator);
+    equalClear();
   };
 
   return <BaseButton text="=" color={"orange"} onClick={handleChange} />;
