@@ -44,11 +44,26 @@ export const useNumber = () => {
   const calc = useCallback(
     (operator) => {
       if (!storedNumber) return;
-      operator ? setSumNumber((value) => eval(`${value} ${operator} ${storedNumber}`)) : setSumNumber(storedNumber);
+      operator
+        ? setSumNumber((value) => eval(`${value} ${operator} ${storedNumber}`))
+        : setSumNumber(storedNumber);
       setStoredNumber("");
     },
     [storedNumber]
   );
+
+  const clear = () => {
+    setStoredNumber("");
+    setIsNumberActived(false);
+  };
+
+  const allClear = () => {
+    setNumber("");
+    setStoredNumber("");
+    setSumNumber("");
+    setIsNumberActived(false);
+    setIsCalculated(false);
+  };
 
   const setUnNumberFlg = useCallback(() => setIsNumberActived(false), []);
   const setCalculatedFlg = useCallback(() => setIsCalculated(true), []);
@@ -63,5 +78,7 @@ export const useNumber = () => {
     calc,
     setUnNumberFlg,
     setCalculatedFlg,
+    allClear,
+    clear,
   };
 };

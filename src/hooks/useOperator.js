@@ -38,9 +38,19 @@ export const useOperator = () => {
     [isOperatorActived]
   );
 
+  const clear = () => {
+    setOperator("");
+    setBeforeOperator("");
+    setIsOperatorActived(false);
+    setIsOperatorClicked(false);
+  };
+
   // 直近の選択が演算子でないことを示す
   const setUnOperatorFlg = useCallback(() => setIsOperatorActived(false), []);
-  const setClickFinishedFlg = useCallback(() => setIsOperatorClicked(false), []);
+  const setClickFinishedFlg = useCallback(
+    () => setIsOperatorClicked(false),
+    []
+  );
 
   return {
     operator,
@@ -50,5 +60,6 @@ export const useOperator = () => {
     set,
     setUnOperatorFlg,
     setClickFinishedFlg,
+    clear,
   };
 };

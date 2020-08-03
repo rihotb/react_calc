@@ -2,16 +2,16 @@ import React, { useContext } from "react";
 import { NumberContext } from "./NumberProvider";
 import BaseButton from "./BaseButton";
 
-const ClearButton = () => {
-  const { clear } = useContext(NumberContext);
+const AllClearButton = () => {
+  const { allClear } = useContext(NumberContext);
 
   const handleClear = () => {
-    clear();
+    allClear();
   };
 
   return (
     <BaseButton
-      text={`C`}
+      text={`AC`}
       color="#A9A9A9"
       fontColor="black"
       onClick={() => handleClear()}
@@ -19,4 +19,4 @@ const ClearButton = () => {
   );
 };
 
-export default ClearButton;
+export default AllClearButton;
