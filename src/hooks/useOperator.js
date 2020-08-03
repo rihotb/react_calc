@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 /**
  * 演算子を扱うフック
@@ -38,6 +38,9 @@ export const useOperator = () => {
     [isOperatorActived]
   );
 
+  /**
+   * 全ての演算子、フラグをリセットする
+   */
   const allClear = () => {
     setOperator("");
     setBeforeOperator("");

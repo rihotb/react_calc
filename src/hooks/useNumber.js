@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 
 /**
  * 数値を扱うフック
@@ -60,6 +60,9 @@ export const useNumber = () => {
     setNumber("");
   };
 
+  /**
+   * 全ての数値、フラグをリセットする
+   */
   const allClear = () => {
     setNumber("");
     setStoredNumber("");

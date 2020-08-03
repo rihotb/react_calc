@@ -26,13 +26,14 @@ const NumberProvider = (props) => {
       useNumberGroup.setUnNumberFlg();
       useNumberGroup.setCalculatedFlg();
       // 計算処理を実行
-      console.log(`計算処理実行`);
       useNumberGroup.calc(calcOperator[useOperatorGroup.beforeOperator]);
       useOperatorGroup.setClickFinishedFlg();
     }
   }, [useOperatorGroup.isOperatorClicked, useOperatorGroup.beforeOperator]);
 
-  //Cボタン押したら動く
+  /**
+   * Cボタン押したら動く
+   */
   const clear = () => {
     if (useNumberGroup.isNumberActived) {
       numberClear();
@@ -41,27 +42,38 @@ const NumberProvider = (props) => {
     }
   };
 
-  //ACボタン押したら動く
+  /**
+   * ACボタン押したら動く
+   */
   const allClear = () => {
     useNumberGroup.allClear();
-    useOperatorGroup.clear();
+    useOperatorGroup.allClear();
   };
 
+  /**
+   * 数値を押してからCボタンが押されたら動く
+   */
   const numberClear = () => {
     useNumberGroup.numberClear();
     useNumberGroup.setUnNumberFlg();
-    //２回目以降のときの処理
+    //２回目以降のときの処理 1+1などの時
     if (useOperatorGroup.operator) {
       useOperatorGroup.setOperatorFlg();
     }
   };
 
+  /**
+   * 演算子を押してからCボタンが押されたら動く
+   */
   const operatorClear = () => {
     useNumberGroup.numberClear();
   };
 
+  /**
+   * Equalボタン押したら動く
+   */
   const equalClear = () => {
-    useOperatorGroup.clear();
+    useOperatorGroup.allClear();
   };
 
   return (
