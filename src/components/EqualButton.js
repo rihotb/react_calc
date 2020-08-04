@@ -11,6 +11,7 @@ const EqualButton = () => {
   const handleChange = () => {
     useNumberGroup.calc(calcOperator[useOperatorGroup.beforeOperator]);
     equalClear();
+    useNumberGroup.setUnNumberFlg();
   };
 
   return <BaseButton text="=" color={"orange"} onClick={handleChange} />;

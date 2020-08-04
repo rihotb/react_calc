@@ -173,6 +173,18 @@ ACを押した時
    L isOperatorClicked: false
    L operator: "" ○
 
+[1+2=]
+1+2=を押した時
+　Cのまま
+　　L number: 2 
+   L storedNumber: "" ○
+   L sumNumber: 3 ○
+   L isNumberActived: false ○
+   L isCalculated: true ○
+   L beforeOperator: "" ○
+   L isOperatorActived: false 
+   L isOperatorClicked: false
+   L operator: "" ○
 
 ACかCを判別するための条件
 

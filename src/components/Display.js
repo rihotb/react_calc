@@ -11,17 +11,24 @@ const Root = styled.div`
 `;
 
 const Display = () => {
-  const { useNumberGroup } = useContext(NumberContext);
+  const { useNumberGroup, useOperatorGroup } = useContext(NumberContext);
   const { storedNumber, sumNumber } = useNumberGroup;
   // let { number, storedNumber } = useContext(NumberContext);
   // number = number.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
   // storedNumber = storedNumber.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
 
-  /*   let stored = Number(useNumberGroup.storedNumber).toLocaleString();
-  let sum = Number(useNumberGroup.sumNumber).toLocaleString(); */
+  //3桁カンマ区切りにする
+  let stored = Number(useNumberGroup.storedNumber).toLocaleString(undefined, {
+    //小数点以下が丸められるのを防ぐ
+    maximumFractionDigits: 20,
+  });
+  let sum = Number(useNumberGroup.sumNumber).toLocaleString(undefined, {
+    maximumFractionDigits: 20,
+  });
 
   // return <h2>{!number.length && !storedNumber ? "0" : number || storedNumber}</h2>;
-  return <Root>{storedNumber || sumNumber || 0}</Root>;
+  // return <Root>{storedNumber || sumNumber || 0}</Root>;
+  return <Root>{!useNumberGroup.isNumberActived ? sum : stored}</Root>;
 };
 
 export default Display;
