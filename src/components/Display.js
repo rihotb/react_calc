@@ -11,11 +11,7 @@ const Root = styled.div`
 `;
 
 const Display = () => {
-  const { useNumberGroup, useOperatorGroup } = useContext(NumberContext);
-  const { storedNumber, sumNumber } = useNumberGroup;
-  // let { number, storedNumber } = useContext(NumberContext);
-  // number = number.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
-  // storedNumber = storedNumber.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+  const { useNumberGroup } = useContext(NumberContext);
 
   //3桁カンマ区切りにする
   let stored = Number(useNumberGroup.storedNumber).toLocaleString(undefined, {
@@ -26,8 +22,6 @@ const Display = () => {
     maximumFractionDigits: 20,
   });
 
-  // return <h2>{!number.length && !storedNumber ? "0" : number || storedNumber}</h2>;
-  // return <Root>{storedNumber || sumNumber || 0}</Root>;
   return <Root>{!useNumberGroup.isNumberActived ? sum : stored}</Root>;
 };
 
