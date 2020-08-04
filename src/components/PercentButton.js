@@ -3,13 +3,18 @@ import { NumberContext } from "./NumberProvider";
 import BaseButton from "./BaseButton";
 
 const PercentButton = () => {
-  // const { handlePercentButton } = useContext(NumberContext);
+  const { percentNumber } = useContext(NumberContext);
+
+  const handleChange = () => {
+    percentNumber();
+  };
+
   return (
     <BaseButton
       text="%"
       color="#A9A9A9"
       fontColor="black"
-      // onClick={() => handlePercentButton()}
+      onClick={handleChange}
     />
   );
 };

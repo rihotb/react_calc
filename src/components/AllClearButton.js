@@ -14,7 +14,7 @@ const AllClearButton = () => {
       text={`AC`}
       color="#A9A9A9"
       fontColor="black"
-      onClick={() => handleClear()}
+      onClick={handleClear}
     />
   );
 };

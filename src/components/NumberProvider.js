@@ -76,6 +76,20 @@ const NumberProvider = (props) => {
     useOperatorGroup.allClear();
   };
 
+  /**
+   * Percentボタン押したら動く
+   */
+  const percentNumber = () => {
+    useNumberGroup.percent();
+  };
+
+  /**
+   *  +/-ボタンを押したら動く
+   */
+  const toggleNegative = () => {
+    useNumberGroup.toggleNegative();
+  };
+
   return (
     <NumberContext.Provider
       value={{
@@ -84,6 +98,8 @@ const NumberProvider = (props) => {
         allClear,
         equalClear,
         clear,
+        percentNumber,
+        toggleNegative,
       }}
     >
       {props.children}

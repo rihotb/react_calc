@@ -15,8 +15,6 @@ const Calculator = () => {
   const { useNumberGroup } = useContext(NumberContext);
   const { number } = useNumberGroup;
 
-  //numberがからかいなか
-
   return (
     <CalculatorStyles>
       <div className="calculator">

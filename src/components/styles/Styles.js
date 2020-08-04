@@ -20,10 +20,6 @@ export const CalculatorStyles = styled.div`
     color: white;
     font-size: 40px;
     text-align: right;
-    h2 {
-      margin-bottom: 10px;
-      font-weight: 300;
-    }
   }
 
   .buttons {

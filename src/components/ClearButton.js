@@ -14,7 +14,7 @@ const ClearButton = () => {
       text={`C`}
       color="#A9A9A9"
       fontColor="black"
-      onClick={() => handleClear()}
+      onClick={handleClear}
     />
   );
 };

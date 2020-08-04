@@ -71,6 +71,36 @@ export const useNumber = () => {
     setIsCalculated(false);
   };
 
+  /**
+   * 数値に0.01をかける
+   */
+  const percent = () => {
+    if (sumNumber) {
+      setSumNumber(`${sumNumber * 0.01}`);
+    } else {
+      setStoredNumber(`${storedNumber * 0.01}`);
+    }
+  };
+
+  /**
+   * 数値が0より大きければ-、-であれば+にする
+   */
+  const toggleNegative = () => {
+    if (storedNumber) {
+      if (storedNumber > 0) {
+        setStoredNumber(`-${storedNumber}`);
+      } else {
+        const positiveStored = storedNumber.slice(1);
+        setStoredNumber(positiveStored);
+      }
+    } else if (sumNumber > 0) {
+      setSumNumber(`-${sumNumber}`);
+    } else {
+      const positiveSum = sumNumber.slice(1);
+      setSumNumber(positiveSum);
+    }
+  };
+
   const setUnNumberFlg = useCallback(() => setIsNumberActived(false), []);
   const setCalculatedFlg = useCallback(() => setIsCalculated(true), []);
 
@@ -86,5 +116,9 @@ export const useNumber = () => {
     setCalculatedFlg,
     allClear,
     numberClear,
+    percent,
+    toggleNegative,
+    setStoredNumber,
+    setSumNumber,
   };
 };
