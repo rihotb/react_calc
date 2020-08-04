@@ -35,7 +35,9 @@ const NumberProvider = (props) => {
    * Cボタン押したら動く
    */
   const clear = () => {
-    if (useNumberGroup.isNumberActived) {
+    if (useOperatorGroup.operator === "=") {
+      allClear();
+    } else if (useNumberGroup.isNumberActived) {
       numberClear();
     } else {
       operatorClear();

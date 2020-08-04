@@ -4,13 +4,11 @@ import BaseButton from "./BaseButton";
 import calcOperator from "../consts/calcOperator";
 
 const EqualButton = () => {
-  const { useNumberGroup, useOperatorGroup, equalClear } = useContext(
-    NumberContext
-  );
+  const { useNumberGroup, useOperatorGroup } = useContext(NumberContext);
 
   const handleChange = () => {
     useNumberGroup.calc(calcOperator[useOperatorGroup.beforeOperator]);
-    equalClear();
+    useOperatorGroup.setEqual("=");
     useNumberGroup.setUnNumberFlg();
   };
 

@@ -39,6 +39,13 @@ export const useOperator = () => {
   );
 
   /**
+   * イコール演算子を保存する
+   */
+  const setEqual = useCallback((value) => {
+    setOperator(value);
+  }, []);
+
+  /**
    * 全ての演算子、フラグをリセットする
    */
   const allClear = () => {
@@ -53,10 +60,7 @@ export const useOperator = () => {
 
   const setOperatorFlg = useCallback(() => setIsOperatorActived(true), []);
 
-  const setClickFinishedFlg = useCallback(
-    () => setIsOperatorClicked(false),
-    []
-  );
+  const setClickFinishedFlg = useCallback(() => setIsOperatorClicked(false), []);
 
   return {
     operator,
@@ -64,6 +68,7 @@ export const useOperator = () => {
     isOperatorActived,
     isOperatorClicked,
     set,
+    setEqual,
     setUnOperatorFlg,
     setClickFinishedFlg,
     allClear,
